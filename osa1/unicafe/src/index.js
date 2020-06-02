@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const Stat = (props) => {
+const Statistics = (props) => {
   
   const sum = () => {
     return props.good+props.neutral+props.bad
@@ -14,14 +14,15 @@ const Stat = (props) => {
   }
 
   const avg = () => {
-    return props.good+(props.bad*-1) / sum()
+    return (props.good+(props.bad*-1)) / sum()
   }
 
   const posit = () => {
     if (props.good===0) {
       return 0
     }
-    return props.good/props.bad
+    
+    return props.good/sum()*100
   }
 
   return (
@@ -54,7 +55,7 @@ const App = (props) => {
       <p>Erinomaista {good}</p> 
       <p>Kiitos ruuasta {neutral}</p>
       <p>Tällä kertaa ei maistunut {bad}</p>
-      <Stat good={good} neutral={neutral} bad={bad}/>
+      <Statistics good={good} neutral={neutral} bad={bad}/>
     </div>
   )
 
