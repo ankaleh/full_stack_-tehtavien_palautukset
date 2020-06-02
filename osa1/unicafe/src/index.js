@@ -27,6 +27,9 @@ const Statistics = (props) => {
 
   return (
     <div>
+      <p>Erinomaista {props.good}</p> 
+      <p>Kiitos ruuasta {props.neutral}</p>
+      <p>Tällä kertaa ei maistunut {props.bad}</p>
       <p>Palautteita annettu yhteensä {sum()}</p>
       <p>Keskiarvo {avg()}</p>
       <p>Myönteisten palautteiden prosenttiosuus {posit()}</p>
@@ -52,9 +55,6 @@ const App = (props) => {
       <button onClick={handleBadClick}>Tällä kertaa ei maistunut</button>
 
       <h2>Tilasto</h2>
-      <p>Erinomaista {good}</p> 
-      <p>Kiitos ruuasta {neutral}</p>
-      <p>Tällä kertaa ei maistunut {bad}</p>
       <Statistics good={good} neutral={neutral} bad={bad}/>
     </div>
   )
