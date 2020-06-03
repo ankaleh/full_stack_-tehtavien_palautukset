@@ -7,18 +7,68 @@ const Button = (props) => {
   )
 }
 
+const TheMostVoted = (props) => {
+  
+  const theBiggest = () => {
+    let theBiggest = 0
+    props.table.forEach(value => {
+      if (value > theBiggest) {
+        theBiggest=value
+        
+      }
+    })
+
+    return theBiggest
+  }
+
+  if (theBiggest()===0) {
+    return (
+      <>
+      <p>Yhtään ääntä ei ole annettu.</p>
+      </>
+    )
+  }
+
+  const index = () => {
+    return props.table.indexOf(theBiggest())
+  }
+
+  return (
+    <>
+      <p>{props.anecdotes[index()]}</p>
+      <p>Kaskulla ääniä {theBiggest()}</p>
+    </>
+  )
+
+}
+
 const App = (props) => {
-  const [selected, setSelected] = useState(0)
-  const handleClick = () => {
-    const random = Math.floor((Math.random() * 6)+1)
+  const random = Math.floor((Math.random() * 6)+1)
+  const [selected, setSelected] = useState(random-1)
+
+  const handleNext = () => { 
     console.log(random)
     setSelected(random-1)
+  }
+ 
+  const [table, setTable] = useState([0,0,0,0,0,0])
+  
+  const handleVote = () => {
+    const copy = [...table]
+    copy[selected]+=1 
+    setTable(copy)
+    console.log(copy)
   }
 
   return (
     <div>
+      <h2>Päivän kasku</h2>
       <p>{props.anecdotes[selected]}</p>
-      <Button handleClick={handleClick} text='Seuraava kasku'/>
+      <Button handleClick={handleNext} text='Seuraava kasku'/>
+      <Button handleClick={handleVote} text='Äänestä'/>
+      
+      <h2>Eniten ääniä saanut kasku</h2>
+      <TheMostVoted table={table} anecdotes={anecdotes}/>
     </div>
   )
 }
