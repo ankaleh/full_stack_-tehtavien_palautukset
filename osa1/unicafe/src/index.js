@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom'
 
 const StatisticsLine = (props) => {
   return (
-  <p>{props.text} {props.value}</p>
+    <>
+      <tr><td>{props.text}</td><td>{props.value}</td></tr>
+    </>
   )
 
 }
@@ -39,14 +41,16 @@ const Statistics = (props) => {
   }
 
   return (
-    <div>
-      <StatisticsLine text='Erinomaista' value={props.good}/>
-      <StatisticsLine text='Kiitos ruoasta' value={props.neutral}/>
-      <StatisticsLine text='Tällä kertaa ei maistunut' value={props.bad}/>
-      <StatisticsLine text='Palautteita yhteensä' value={sum()}/>
-      <StatisticsLine text='Keskiarvo' value={avg()}/>
-      <StatisticsLine text='Myönteisten palautteiden prosenttiosuus' value={posit()}/>
-    </div>
+    <table>
+      <tbody>
+        <StatisticsLine text='Erinomaista' value={props.good}/>
+        <StatisticsLine text='Kiitos ruoasta' value={props.neutral}/>
+        <StatisticsLine text='Tällä kertaa ei maistunut' value={props.bad}/>
+        <StatisticsLine text='Palautteita yhteensä' value={sum()}/>
+        <StatisticsLine text='Keskiarvo' value={avg()}/>
+        <StatisticsLine text='Myönteisten palautteiden prosenttiosuus' value={posit()}/>
+      </tbody>
+    </table>
   )
 } 
 
@@ -69,6 +73,7 @@ const App = (props) => {
 
       <h2>Tilasto</h2>
       <Statistics good={good} neutral={neutral} bad={bad}/>
+      
     </div>
   )
 
