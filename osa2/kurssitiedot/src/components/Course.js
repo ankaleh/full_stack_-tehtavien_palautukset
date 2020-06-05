@@ -48,5 +48,4 @@ const Header = ({course}) => {
     )
   }
 
-
   export default Course
