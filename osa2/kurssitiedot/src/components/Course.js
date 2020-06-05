@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Header = (props) => {
+const Header = ({course}) => {
     return (
       <>
-        <h1>{props.course}</h1>
+        <h2>{course}</h2>
       </>
     )
   }
@@ -14,7 +14,7 @@ const Header = (props) => {
       <>
         {parts.map(part =>
           <Part key = {part.id} part={part.name} exercises={part.exercises}/>
-          )}
+        )}
       </>
     )
   }
@@ -30,20 +30,22 @@ const Header = (props) => {
   const Total = ({parts}) => {
     return (
       <>
-        <p>Number of exercises {parts.reduce((sum, part) => sum + part.exercises,0)}</p>
+        <p><b>Number of exercises {parts.reduce((sum, part) => sum + part.exercises,0)}</b></p>
       </>
     )
   }
 
   const Course = ({course}) => {
       
-      return (
+    return (
         <>
+        
           <Header course={course.name}/>
           <Content parts={course.parts}/>
-          <Total parts={course.parts}/> 
+          <Total parts={course.parts}/>
+          
         </>
-      )
+    )
   }
 
 
