@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
+import Filter from './components/Filter'
 
 const App = () => {
   const [ persons, setPersons] = useState([
@@ -30,58 +33,21 @@ const App = () => {
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
   }
-
-  const addPerson = (event) => {
-    event.preventDefault()
-
-    var personsAdded = persons.filter((person) => person.name===`${newName}`)
-    
-    if (personsAdded.length===1) {
-      return (
-      window.alert(`${newName} on jo lisätty puhelinluetteloon.`)
-      )
-    }
-
-    const newPerson = {
-      name: newName,
-      number: newNumber
-    }
-
-    setPersons(persons.concat(newPerson))
-    setNewName('')
-    setNewNumber('')
   
-  }
-
   return (
     <div>
       <h1>Puhelinluettelo</h1>
+
       <h2>Etsi yhteystieto</h2>
-      <div>
-          Kirjoita nimi: <input value={result} onChange={handleResultChange}/>
-      </div>
+      <Filter result={result} handleResultChange={handleResultChange}/>
+
       <h3>Yhteystiedot</h3>
-        <ul>
-          {numbersToShow.map(person =>
-            <p key={person.name}>{person.name} {person.number}</p>
-          )}
-        </ul>
+      <Persons numbersToShow={numbersToShow} />
 
       <h3>Lisää uusi yhteystieto</h3>
-      <form>
-        <div>
-          nimi: <input value={newName} onChange={handleNameChange}/>
-        </div>
-        <div>
-          numero: <input value={newNumber} onChange={handleNumberChange}/>
-        </div>
-      
-        <div>
-          <button type="submit" onClick={addPerson}>Lisää</button>
-        </div>
-      </form>
-      
+      <PersonForm persons = {persons} setPersons= {setPersons} newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange}/>
     </div>
+
   )
 
 }
