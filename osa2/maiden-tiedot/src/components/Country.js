@@ -3,7 +3,7 @@ import React from 'react'
 const Country = (props) => {
     return (
       <>
-        {props.foundCountries.map((country) => 
+        {props.found.map((country) => 
         <div key={country.numericCode}>
   
           <h2>{country.name}</h2>

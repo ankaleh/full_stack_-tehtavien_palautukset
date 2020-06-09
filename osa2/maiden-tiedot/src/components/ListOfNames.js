@@ -2,8 +2,7 @@ import React from 'react'
 import Country from './Country'
 
 const ListOfNames = (props) => {
-    //console.log(props.countriesToShow.length)
-    
+
     if (props.foundCountries.length > 10) {
         return (
             <p>Et ole vielä antanut tarpeeksi merkkejä.</p>
@@ -26,7 +25,11 @@ const ListOfNames = (props) => {
                 <p>Haulla löytyneet maat:</p>
                 <ul>
                     {props.foundCountries.map((country) => 
-                    <li key={country.numericCode}>{country.name}</li>)}
+                    <p key={country.numericCode}>{country.name} 
+                        <button onClick={() => {props.setResult(country.name)}}>
+                        Näytä maan tiedot
+                        </button>
+                    </p>)}
                 </ul>
             </>
         )
