@@ -6,6 +6,7 @@ import Filter from './components/Filter'
 
 const App = () => {
 
+  
   const [countries, setCountries] = useState([]) //tähän palvelimelta haetut maat  
   const [result, setResult] = useState('')
   
@@ -23,6 +24,7 @@ const App = () => {
         setCountries(response.data)
       })
   }, [])
+
 
   return (
     <div>
