@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
-import axios from 'axios'
+import personService from './services/persons'
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
@@ -13,13 +13,15 @@ const App = () => {
   const [ showAll, setShowAll ] = useState(true)
 
   useEffect(()=> {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
   
   }, [])
+
+
 
   const numbersToShow = showAll
     ? persons 
@@ -46,10 +48,10 @@ const App = () => {
       <Filter result={result} handleResultChange={handleResultChange}/>
 
       <h3>Yhteystiedot</h3>
-      <Persons numbersToShow={numbersToShow} />
+      <Persons numbersToShow={numbersToShow} persons={persons} setPersons={setPersons} />
 
       <h3>Lisää uusi yhteystieto</h3>
-      <PersonForm persons = {persons} setPersons= {setPersons} newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange}/>
+      <PersonForm persons = {persons} setPersons={setPersons} newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange}/>
     </div>
 
   )

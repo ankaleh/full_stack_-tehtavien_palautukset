@@ -14,6 +14,7 @@ const ListOfNames = (props) => {
         )
     }
     if (props.foundCountries.length===1) {
+        
         return (
             <div>
                 <Country foundCountries={props.foundCountries}/>
