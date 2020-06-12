@@ -1,7 +1,7 @@
 import React from 'react'
 import personService from '../services/persons'
 
-const PersonForm = ({persons, setPersons, newName, setNewName, newNumber, setNewNumber, handleNameChange, handleNumberChange}) => {
+const PersonForm = ({persons, setPersons, newName, setNewName, newNumber, setNewNumber, handleNameChange, handleNumberChange, setMessage, setErrorMessage}) => {
     const addPerson = (event) => {
         event.preventDefault()
     
@@ -10,19 +10,31 @@ const PersonForm = ({persons, setPersons, newName, setNewName, newNumber, setNew
         if (personsAdded.length===1) {
           
           if (window.confirm(`${newName} on jo lisätty puhelinluetteloon. Haluatko korvata vanhan numeron uudella?`)) {
-            console.log(personsAdded)
-            const person = personsAdded[0]
-            console.log(person)
             
-            const updatedPerson = {...person, number:newNumber}
+            const person = personsAdded[0]
+        
+            const updatedPerson = {...person, number: newNumber}
             personService.update(person.id, updatedPerson)
                 .then(response => {
                     setPersons(persons.map(p => p.id !== person.id ? p : response))
                     setNewName('')
                     setNewNumber('')
+                    setMessage('Puhelinnumero päivitetty!')
+                    setTimeout(() => {
+                        setMessage(null)
+                    }, 3000)
                 })
-            return window.alert('Puhelinnumero päivitetty!')
+                .catch(error => {
+                    setErrorMessage('Yhteystieto on jo poistettu.')
+                    setTimeout(() => {
+                        setErrorMessage(null)
+                    }, 3000)
+                    
+                })
+    
           }
+          
+          return 
           
         }
     
@@ -37,6 +49,10 @@ const PersonForm = ({persons, setPersons, newName, setNewName, newNumber, setNew
                 setPersons(persons.concat(response))
                 setNewName('')
                 setNewNumber('')
+                setMessage('Uusi yhteystieto lisätty!')
+                    setTimeout(() => {
+                        setMessage(null)
+                    }, 3000)
             })
 
     }

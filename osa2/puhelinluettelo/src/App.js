@@ -3,6 +3,7 @@ import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 import personService from './services/persons'
+import Notification from './components/Notification'
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
@@ -12,6 +13,9 @@ const App = () => {
   const [ result, setResult] = useState('')
   const [ showAll, setShowAll ] = useState(true)
 
+  const [ message, setMessage] = useState(null)
+  const [ errorMessage, setErrorMessage] = useState(null)
+
   useEffect(()=> {
     personService
       .getAll()
@@ -20,8 +24,6 @@ const App = () => {
       })
   
   }, [])
-
-
 
   const numbersToShow = showAll
     ? persons 
@@ -43,15 +45,16 @@ const App = () => {
   return (
     <div>
       <h1>Puhelinluettelo</h1>
-
+      <Notification message = {message} errorMessage={errorMessage}/>
       <h2>Etsi yhteystieto</h2>
       <Filter result={result} handleResultChange={handleResultChange}/>
 
       <h3>Yhteystiedot</h3>
-      <Persons numbersToShow={numbersToShow} persons={persons} setPersons={setPersons} />
+      <Persons numbersToShow={numbersToShow} persons={persons} setPersons={setPersons} setMessage={setMessage} setErrorMessage={setErrorMessage}/>
 
       <h3>Lisää uusi yhteystieto</h3>
-      <PersonForm persons = {persons} setPersons={setPersons} newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange}/>
+      <PersonForm persons = {persons} setPersons={setPersons} newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} setMessage={setMessage} setErrorMessage={setErrorMessage}/>
+      
     </div>
 
   )
