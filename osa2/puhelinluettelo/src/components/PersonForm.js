@@ -2,6 +2,7 @@ import React from 'react'
 import personService from '../services/persons'
 
 const PersonForm = ({persons, setPersons, newName, setNewName, newNumber, setNewNumber, handleNameChange, handleNumberChange, setMessage, setErrorMessage}) => {
+    
     const addPerson = (event) => {
         event.preventDefault()
     
@@ -31,7 +32,7 @@ const PersonForm = ({persons, setPersons, newName, setNewName, newNumber, setNew
                     }, 3000)
                     
                 })
-    
+
           }
           
           return 
@@ -53,6 +54,16 @@ const PersonForm = ({persons, setPersons, newName, setNewName, newNumber, setNew
                     setTimeout(() => {
                         setMessage(null)
                     }, 3000)
+            })
+            .catch(error => {
+                // pääset käsiksi palvelimen palauttamaan virheilmoitusolioon näin
+                const response = error.response.data
+                console.log(response)
+                setErrorMessage(JSON.stringify(response))
+                    setTimeout(() => {
+                        setErrorMessage(null)
+                    }, 3000)
+
             })
 
     }
